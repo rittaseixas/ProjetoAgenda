@@ -11,7 +11,7 @@ import javax.swing.text.PlainDocument;
 
 /**
  *
- * @author lucas
+ * @author lucasR
  */
 //Classe para controlar o tamanho do texto digitado.
 public class MaximumSize extends PlainDocument {
