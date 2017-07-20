@@ -10,7 +10,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
- * @author lucas
+ * @author lucasR
  */
 public class JavaApplication17 {
 
