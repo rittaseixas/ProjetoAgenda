@@ -44,6 +44,16 @@ public class Home extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        notas = new javax.swing.JPanel();
+        jLabelConsultar = new javax.swing.JLabel();
+        jLabelRegistrar = new javax.swing.JLabel();
+        buscar = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        jButton2 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable5 = new javax.swing.JTable();
+        notasBuscar = new javax.swing.JPanel();
         agendar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -62,14 +72,6 @@ public class Home extends javax.swing.JFrame {
         jComboBox5 = new javax.swing.JComboBox<>();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
-        notas = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        buscar = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
-        jButton2 = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -89,7 +91,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        btnSair.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnSair.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSair.setForeground(new java.awt.Color(255, 255, 255));
         btnSair.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btnSair.setText("X");
@@ -127,6 +129,7 @@ public class Home extends javax.swing.JFrame {
         btnCompromissos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCompromissos.setForeground(new java.awt.Color(255, 255, 255));
         btnCompromissos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCompromissos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Calendar_20px.png"))); // NOI18N
         btnCompromissos.setText("Compromissos");
         btnCompromissos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCompromissos.setOpaque(true);
@@ -146,6 +149,7 @@ public class Home extends javax.swing.JFrame {
         btnAgendar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnAgendar.setForeground(new java.awt.Color(255, 255, 255));
         btnAgendar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnAgendar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Create_20px.png"))); // NOI18N
         btnAgendar.setText("Agendar");
         btnAgendar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAgendar.setOpaque(true);
@@ -176,7 +180,8 @@ public class Home extends javax.swing.JFrame {
         btnBuscar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnBuscar.setText("Buscar");
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Search_20px.png"))); // NOI18N
+        btnBuscar.setText(" Buscar");
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.setOpaque(true);
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -196,15 +201,19 @@ public class Home extends javax.swing.JFrame {
         headerLayout.setHorizontalGroup(
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(headerLayout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMinimizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(headerLayout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(btnCompromissos, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addComponent(btnCompromissos, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -217,13 +226,10 @@ public class Home extends javax.swing.JFrame {
             headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerLayout.createSequentialGroup()
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(headerLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(btnSair, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
                         .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -412,6 +418,108 @@ public class Home extends javax.swing.JFrame {
 
         home.add(compromissos, "card2");
 
+        notas.setBackground(java.awt.Color.white);
+
+        jLabelConsultar.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        jLabelConsultar.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelConsultar.setText("Consultar");
+
+        jLabelRegistrar.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
+        jLabelRegistrar.setForeground(new java.awt.Color(102, 102, 102));
+        jLabelRegistrar.setText("Registrar");
+
+        javax.swing.GroupLayout notasLayout = new javax.swing.GroupLayout(notas);
+        notas.setLayout(notasLayout);
+        notasLayout.setHorizontalGroup(
+            notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notasLayout.createSequentialGroup()
+                .addGap(229, 229, 229)
+                .addComponent(jLabelConsultar)
+                .addGap(34, 34, 34)
+                .addComponent(jLabelRegistrar)
+                .addContainerGap(280, Short.MAX_VALUE))
+        );
+        notasLayout.setVerticalGroup(
+            notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(notasLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelConsultar)
+                    .addComponent(jLabelRegistrar))
+                .addContainerGap(296, Short.MAX_VALUE))
+        );
+
+        home.add(notas, "card4");
+
+        buscar.setBackground(java.awt.Color.white);
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jLabel8.setText("Dia");
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jButton2.setText("Buscar");
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nome", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade"
+            }
+        ));
+        jScrollPane6.setViewportView(jTable5);
+
+        javax.swing.GroupLayout buscarLayout = new javax.swing.GroupLayout(buscar);
+        buscar.setLayout(buscarLayout);
+        buscarLayout.setHorizontalGroup(
+            buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane6)
+                .addContainerGap())
+            .addGroup(buscarLayout.createSequentialGroup()
+                .addGap(181, 181, 181)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addComponent(jButton2)
+                .addContainerGap(109, Short.MAX_VALUE))
+        );
+        buscarLayout.setVerticalGroup(
+            buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buscarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton2)
+                    .addGroup(buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        home.add(buscar, "card2");
+
+        javax.swing.GroupLayout notasBuscarLayout = new javax.swing.GroupLayout(notasBuscar);
+        notasBuscar.setLayout(notasBuscarLayout);
+        notasBuscarLayout.setHorizontalGroup(
+            notasBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 663, Short.MAX_VALUE)
+        );
+        notasBuscarLayout.setVerticalGroup(
+            notasBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 331, Short.MAX_VALUE)
+        );
+
+        home.add(notasBuscar, "card6");
+
         agendar.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
@@ -422,6 +530,11 @@ public class Home extends javax.swing.JFrame {
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarefa", "Estudar", "Trabalho", "Prova" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Biologia", "Matemática", "Inglês", "Português", " " }));
@@ -532,7 +645,7 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(agendarLayout.createSequentialGroup()
                                 .addGap(63, 63, 63)
                                 .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox5, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                                    .addComponent(jComboBox5)
                                     .addComponent(jComboBox4)))))
                     .addGroup(agendarLayout.createSequentialGroup()
                         .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -560,85 +673,6 @@ public class Home extends javax.swing.JFrame {
         );
 
         home.add(agendar, "card3");
-
-        notas.setBackground(java.awt.Color.white);
-
-        jLabel5.setText("Futuros");
-
-        javax.swing.GroupLayout notasLayout = new javax.swing.GroupLayout(notas);
-        notas.setLayout(notasLayout);
-        notasLayout.setHorizontalGroup(
-            notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(notasLayout.createSequentialGroup()
-                .addGap(297, 297, 297)
-                .addComponent(jLabel5)
-                .addContainerGap(300, Short.MAX_VALUE))
-        );
-        notasLayout.setVerticalGroup(
-            notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(notasLayout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel5)
-                .addContainerGap(212, Short.MAX_VALUE))
-        );
-
-        home.add(notas, "card4");
-
-        buscar.setBackground(java.awt.Color.white);
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jLabel8.setText("Dia");
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jButton2.setText("Buscar");
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Nome", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade"
-            }
-        ));
-        jScrollPane6.setViewportView(jTable5);
-
-        javax.swing.GroupLayout buscarLayout = new javax.swing.GroupLayout(buscar);
-        buscar.setLayout(buscarLayout);
-        buscarLayout.setHorizontalGroup(
-            buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6)
-                .addContainerGap())
-            .addGroup(buscarLayout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(jButton2)
-                .addContainerGap(109, Short.MAX_VALUE))
-        );
-        buscarLayout.setVerticalGroup(
-            buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(buscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2)
-                    .addGroup(buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
-                        .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        home.add(buscar, "card2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -779,6 +813,10 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarMouseExited
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     public void setLabelColor(JLabel label) {
         label.setBackground(new Color(0, 150, 62));
     }
@@ -849,11 +887,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelConsultar;
+    private javax.swing.JLabel jLabelRegistrar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -868,5 +907,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel notas;
+    private javax.swing.JPanel notasBuscar;
     // End of variables declaration//GEN-END:variables
 }
