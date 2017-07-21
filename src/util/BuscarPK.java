@@ -58,4 +58,43 @@ public class BuscarPK {
         }
         return 0;
     }
+    public static String buscarTipoTarefa(int tipoTarefa){
+        try {
+            pst = BDConnect.getConnection().prepareStatement("SELECT descricao FROM tipo_atividade WHERE cod_tipo = ?");
+            pst.setInt(1, tipoTarefa);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+               return rs.getString("descricao");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarPK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        public static String buscarNomeMateria(int codMateria){
+        try {
+            pst = BDConnect.getConnection().prepareStatement("SELECT nome FROM materia WHERE cod_materia = ?");
+            pst.setInt(1, codMateria);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+               return rs.getString("nome");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarPK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+        public static String buscarPrioridade(int codPrioridade){
+        try {
+            pst = BDConnect.getConnection().prepareStatement("SELECT descricao FROM prioridade WHERE cod_prioridade = ?");
+            pst.setInt(1, codPrioridade);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+               return rs.getString("descricao");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BuscarPK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

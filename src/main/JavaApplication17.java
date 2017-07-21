@@ -1,12 +1,16 @@
-
 package main;
 
+import DAO.CompromissosDAO;
+import controller.CompromissosController;
+import java.util.Calendar;
+import java.util.Date;
 import view.Home;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import static javax.swing.UIManager.getSystemLookAndFeelClassName;
 import javax.swing.UnsupportedLookAndFeelException;
+import util.Formatar;
 
 /**
  *
@@ -26,6 +30,13 @@ public class JavaApplication17 {
         }
 
         new Home().setVisible(true);
+//        CompromissosController dao = new CompromissosController();
+//        System.out.println(dao.buscarTarefa("2017-07-20"));
+
+//        for (int i = 0; i < 4; i++) {
+//            String[]datas = Formatar.buscarProximosDias();
+//            System.out.println(datas[i]);
+//        }
     }
 
 }

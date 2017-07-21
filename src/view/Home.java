@@ -1,14 +1,18 @@
 package view;
 
 import controller.AgendarController;
+import controller.CompromissosController;
 import util.MaximumSize;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.Compromissos;
-import model.Materia;
 import util.BuscarPK;
-import util.FormatarHora;
+import util.Formatar;
+import util.ModeloTabelaDiaSelecionado;
+import util.ModeloTabelaProximos;
 
 public class Home extends javax.swing.JFrame {
 
@@ -19,10 +23,22 @@ public class Home extends javax.swing.JFrame {
     boolean notasSelected = false;
     boolean buscarSelected = false;
     AgendarController agendarController = new AgendarController();
+    CompromissosController compromissosController = new CompromissosController();
 
     public Home() {
         initComponents();
         txtDescricao.setDocument(new MaximumSize());
+        iniciarCompromissos();
+    }
+
+    public void iniciarCompromissos() {
+        Date[] datas = Formatar.buscarProximosDias();
+        lblDepoisAmanha.setText(Formatar.formatarParaMySql(datas[2]));
+        lblDepoisDepoisAmanha.setText(Formatar.formatarParaMySql(datas[3]));
+        tabelaCompromissos1.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[0])));
+        tabelaCompromissos2.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[1])));
+        tabelaCompromissos3.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[2])));
+        tabelaCompromissos4.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[3])));
     }
 
     @SuppressWarnings("unchecked")
@@ -42,24 +58,24 @@ public class Home extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        tabelaCompromissos1 = new javax.swing.JTable();
+        lblDepoisAmanha = new javax.swing.JLabel();
+        lblDepoisDepoisAmanha = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTable6 = new javax.swing.JTable();
+        tabelaCompromissos4 = new javax.swing.JTable();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable7 = new javax.swing.JTable();
+        tabelaCompromissos2 = new javax.swing.JTable();
         jScrollPane9 = new javax.swing.JScrollPane();
-        jTable8 = new javax.swing.JTable();
+        tabelaCompromissos3 = new javax.swing.JTable();
         notas = new javax.swing.JPanel();
         jLabelConsultar = new javax.swing.JLabel();
         jLabelRegistrar = new javax.swing.JLabel();
         buscar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        jDateChooserDia = new com.toedter.calendar.JDateChooser();
         jButton2 = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTable5 = new javax.swing.JTable();
+        TabelaCompromissosDoDia = new javax.swing.JTable();
         notasBuscar = new javax.swing.JPanel();
         agendar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -253,9 +269,9 @@ public class Home extends javax.swing.JFrame {
 
         jLabel2.setText("Hoje");
 
-        jLabel11.setText("20/07");
+        jLabel11.setText("Amanhã");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCompromissos1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -278,14 +294,14 @@ public class Home extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable2.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane3.setViewportView(jTable2);
+        tabelaCompromissos1.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane3.setViewportView(tabelaCompromissos1);
 
-        jLabel13.setText("21/07");
+        lblDepoisAmanha.setText("21/07");
 
-        jLabel14.setText("22/07");
+        lblDepoisDepoisAmanha.setText("22/07");
 
-        jTable6.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCompromissos4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -308,10 +324,10 @@ public class Home extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable6.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane7.setViewportView(jTable6);
+        tabelaCompromissos4.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane7.setViewportView(tabelaCompromissos4);
 
-        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCompromissos2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -334,10 +350,10 @@ public class Home extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable7.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane8.setViewportView(jTable7);
+        tabelaCompromissos2.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane8.setViewportView(tabelaCompromissos2);
 
-        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCompromissos3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -360,8 +376,8 @@ public class Home extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable8.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane9.setViewportView(jTable8);
+        tabelaCompromissos3.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane9.setViewportView(tabelaCompromissos3);
 
         javax.swing.GroupLayout compromissosLayout = new javax.swing.GroupLayout(compromissos);
         compromissos.setLayout(compromissosLayout);
@@ -383,9 +399,9 @@ public class Home extends javax.swing.JFrame {
                 .addGap(154, 154, 154)
                 .addComponent(jLabel11)
                 .addGap(150, 150, 150)
-                .addComponent(jLabel13)
+                .addComponent(lblDepoisAmanha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel14)
+                .addComponent(lblDepoisDepoisAmanha)
                 .addGap(87, 87, 87))
         );
         compromissosLayout.setVerticalGroup(
@@ -395,15 +411,15 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
+                    .addComponent(lblDepoisAmanha)
+                    .addComponent(lblDepoisDepoisAmanha))
                 .addGap(18, 18, 18)
                 .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         home.add(compromissos, "card2");
@@ -436,7 +452,7 @@ public class Home extends javax.swing.JFrame {
                 .addGroup(notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelConsultar)
                     .addComponent(jLabelRegistrar))
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(318, Short.MAX_VALUE))
         );
 
         home.add(notas, "card4");
@@ -450,19 +466,21 @@ public class Home extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jButton2.setText("Buscar");
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
-        jTable5.setModel(new javax.swing.table.DefaultTableModel(
+        TabelaCompromissosDoDia.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Nome", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade"
+                "Compromisso", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade"
             }
         ));
-        jScrollPane6.setViewportView(jTable5);
+        jScrollPane6.setViewportView(TabelaCompromissosDoDia);
 
         javax.swing.GroupLayout buscarLayout = new javax.swing.GroupLayout(buscar);
         buscar.setLayout(buscarLayout);
@@ -476,7 +494,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(181, 181, 181)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
-                .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jDateChooserDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addComponent(jButton2)
                 .addContainerGap(177, Short.MAX_VALUE))
@@ -489,9 +507,9 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addGroup(buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jDateChooserDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -505,7 +523,7 @@ public class Home extends javax.swing.JFrame {
         );
         notasBuscarLayout.setVerticalGroup(
             notasBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 331, Short.MAX_VALUE)
+            .addGap(0, 353, Short.MAX_VALUE)
         );
 
         home.add(notasBuscar, "card6");
@@ -811,12 +829,21 @@ public class Home extends javax.swing.JFrame {
             tarefa.setDescricaoTarefa(txtDescricao.getText());
             tarefa.setTipoTarefa(BuscarPK.buscarCodTipoTarefa(jComboTipoTarefa.getSelectedItem().toString()));
             tarefa.setCodMateria(BuscarPK.buscarCodMateria(jComboMateria.getSelectedItem().toString()));
-            tarefa.setDataTarefa(FormatarHora.formatarParaMySql(jCallendarAgendar.getDate()));
+            tarefa.setDataTarefa(Formatar.formatarParaMySql(jCallendarAgendar.getDate()));
             tarefa.setHorarioTarefa(jComboHora.getSelectedItem().toString() + ":" + jComboMinuto.getSelectedItem().toString());
             tarefa.setPrioridadeTarefa(BuscarPK.buscarCodPrioridade(jComboPrioridade.getSelectedItem().toString()));
             agendarController.agendarTarefas(tarefa);
         }
     }//GEN-LAST:event_btnSalvarTarefaActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+        if (jDateChooserDia.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor, tenha certeza de ter selecionado um dia válido");
+        } else {
+            TabelaCompromissosDoDia.setModel(new ModeloTabelaDiaSelecionado(Formatar.formatarParaMySql(jDateChooserDia.getDate())));
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public void setLabelColor(JLabel label) {
         label.setBackground(new Color(0, 150, 62));
@@ -859,6 +886,7 @@ public class Home extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TabelaCompromissosDoDia;
     private javax.swing.JPanel agendar;
     private javax.swing.JLabel btnAgendar;
     private javax.swing.JLabel btnBuscar;
@@ -878,13 +906,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboMinuto;
     private javax.swing.JComboBox<String> jComboPrioridade;
     private javax.swing.JComboBox<String> jComboTipoTarefa;
-    private com.toedter.calendar.JDateChooser jDateChooser3;
+    private com.toedter.calendar.JDateChooser jDateChooserDia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -900,13 +926,14 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable5;
-    private javax.swing.JTable jTable6;
-    private javax.swing.JTable jTable7;
-    private javax.swing.JTable jTable8;
+    private javax.swing.JLabel lblDepoisAmanha;
+    private javax.swing.JLabel lblDepoisDepoisAmanha;
     private javax.swing.JPanel notas;
     private javax.swing.JPanel notasBuscar;
+    private javax.swing.JTable tabelaCompromissos1;
+    private javax.swing.JTable tabelaCompromissos2;
+    private javax.swing.JTable tabelaCompromissos3;
+    private javax.swing.JTable tabelaCompromissos4;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtNomeTarefa;
     // End of variables declaration//GEN-END:variables

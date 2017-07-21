@@ -6,6 +6,7 @@ package model;
  */
 public class Compromissos {
 
+    private int codigoTarefa;
     private String nomeTarefa;
     private String descricaoTarefa;
     private int tipoTarefa;
@@ -14,6 +15,15 @@ public class Compromissos {
     private int prioridadeTarefa;
     private int codMateria;
 
+    public int getCodigoTarefa() {
+        return codigoTarefa;
+    }
+
+    public void setCodigoTarefa(int codigoTarefa) {
+        this.codigoTarefa = codigoTarefa;
+    }
+
+    
     public String getNomeTarefa() {
         return nomeTarefa;
     }
