@@ -34,6 +34,10 @@ public class Formatar {
         return datas;
     }
 
+    public static String formatarParaExibir(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/YYYY");
+        return sdf.format(date);
+    }
 //    public static String formatarParaJava(String date){
 //        
 //    }

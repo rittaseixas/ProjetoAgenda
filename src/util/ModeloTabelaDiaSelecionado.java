@@ -5,6 +5,7 @@
  */
 package util;
 
+import DAO.BuscarInfoDAO;
 import controller.CompromissosController;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
@@ -45,13 +46,13 @@ public class ModeloTabelaDiaSelecionado extends AbstractTableModel {
             case 1:
                 return compromisso.getDescricaoTarefa();
             case 2:
-                return BuscarPK.buscarTipoTarefa(compromisso.getTipoTarefa());
+                return BuscarInfoDAO.buscarTipoTarefa(compromisso.getTipoTarefa());
             case 3:
-                return BuscarPK.buscarNomeMateria(compromisso.getCodMateria());
+                return BuscarInfoDAO.buscarNomeMateria(compromisso.getCodMateria());
             case 4:
                  return compromisso.getHorarioTarefa();
             case 5:
-                return BuscarPK.buscarPrioridade(compromisso.getPrioridadeTarefa());
+                return BuscarInfoDAO.buscarPrioridade(compromisso.getPrioridadeTarefa());
         }
         return null;
     }

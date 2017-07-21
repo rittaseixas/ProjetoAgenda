@@ -4,12 +4,12 @@ import controller.AgendarController;
 import controller.CompromissosController;
 import util.MaximumSize;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.Compromissos;
-import util.BuscarPK;
+import DAO.BuscarInfoDAO;
+import java.util.ArrayList;
 import util.Formatar;
 import util.ModeloTabelaDiaSelecionado;
 import util.ModeloTabelaProximos;
@@ -29,16 +29,41 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         txtDescricao.setDocument(new MaximumSize());
         iniciarCompromissos();
+
     }
 
-    public void iniciarCompromissos() {
+    private void iniciarCompromissos() {
         Date[] datas = Formatar.buscarProximosDias();
-        lblDepoisAmanha.setText(Formatar.formatarParaMySql(datas[2]));
-        lblDepoisDepoisAmanha.setText(Formatar.formatarParaMySql(datas[3]));
+        lblDepoisAmanha.setText(Formatar.formatarParaExibir(datas[2]));
+        lblDepoisDepoisAmanha.setText(Formatar.formatarParaExibir(datas[3]));
         tabelaCompromissos1.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[0])));
         tabelaCompromissos2.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[1])));
         tabelaCompromissos3.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[2])));
         tabelaCompromissos4.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[3])));
+    }
+
+    private void fillComboBoxesAgendar() {
+        //Limpa todos os combo boxes do painel Agendar
+        jComboMateria.removeAllItems();
+        jComboTipoTarefa.removeAllItems();
+        jComboPrioridade.removeAllItems();
+
+        //Preenche ArrayLists com os dados e preenche os comboboxes dentro de cada for.
+        ArrayList<String> materias = BuscarInfoDAO.getMateriasCadastradas();
+        for (String materia : materias) {
+            //Preenche o combobox materia com as matérias cadastradas
+            jComboMateria.addItem(materia);
+        }
+        ArrayList<String> tiposTarefas = BuscarInfoDAO.getTiposCadastrados();
+        for (String tipo : tiposTarefas) {
+            //preenche o combobox tipoTarefa com os tipos cadastrados
+            jComboTipoTarefa.addItem(tipo);
+        }
+        ArrayList<String> prioridades = BuscarInfoDAO.getPrioridadesCadstradas();
+        for (String prioridade : prioridades) {
+            //preenche o combobox de prioridades com as prioridades cadastradas
+            jComboPrioridade.addItem(prioridade);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -297,9 +322,11 @@ public class Home extends javax.swing.JFrame {
         tabelaCompromissos1.setGridColor(new java.awt.Color(255, 255, 255));
         jScrollPane3.setViewportView(tabelaCompromissos1);
 
-        lblDepoisAmanha.setText("21/07");
+        lblDepoisAmanha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDepoisAmanha.setPreferredSize(new java.awt.Dimension(39, 14));
 
-        lblDepoisDepoisAmanha.setText("22/07");
+        lblDepoisDepoisAmanha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDepoisDepoisAmanha.setPreferredSize(new java.awt.Dimension(39, 14));
 
         tabelaCompromissos4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -398,28 +425,30 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(154, 154, 154)
                 .addComponent(jLabel11)
-                .addGap(150, 150, 150)
-                .addComponent(lblDepoisAmanha)
+                .addGap(119, 119, 119)
+                .addComponent(lblDepoisAmanha, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblDepoisDepoisAmanha)
-                .addGap(87, 87, 87))
+                .addComponent(lblDepoisDepoisAmanha, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         compromissosLayout.setVerticalGroup(
             compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(compromissosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel11)
-                    .addComponent(lblDepoisAmanha)
-                    .addComponent(lblDepoisDepoisAmanha))
-                .addGap(18, 18, 18)
+                .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel11)
+                        .addComponent(lblDepoisDepoisAmanha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(compromissosLayout.createSequentialGroup()
+                        .addComponent(lblDepoisAmanha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(11, 11, 11)))
                 .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         home.add(compromissos, "card2");
@@ -540,7 +569,6 @@ public class Home extends javax.swing.JFrame {
         jComboTipoTarefa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarefa", "Estudar", "Trabalho", "Prova" }));
 
         jComboMateria.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jComboMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Biologia", "Matemática", "Inglês", "Português", " " }));
 
         jComboPrioridade.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jComboPrioridade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Média", "Baixa" }));
@@ -717,6 +745,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_headerMousePressed
 
     private void btnCompromissosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCompromissosMouseClicked
+        iniciarCompromissos();
         setLabelColor(btnCompromissos);
         resetLabelColor(btnAgendar);
         resetLabelColor(btnNotas);
@@ -747,6 +776,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNotasMouseClicked
 
     private void btnAgendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendarMouseClicked
+        fillComboBoxesAgendar();
         setLabelColor(btnAgendar);
         resetLabelColor(btnCompromissos);
         resetLabelColor(btnNotas);
@@ -827,17 +857,16 @@ public class Home extends javax.swing.JFrame {
             Compromissos tarefa = new Compromissos();
             tarefa.setNomeTarefa(txtNomeTarefa.getText());
             tarefa.setDescricaoTarefa(txtDescricao.getText());
-            tarefa.setTipoTarefa(BuscarPK.buscarCodTipoTarefa(jComboTipoTarefa.getSelectedItem().toString()));
-            tarefa.setCodMateria(BuscarPK.buscarCodMateria(jComboMateria.getSelectedItem().toString()));
+            tarefa.setTipoTarefa(BuscarInfoDAO.buscarCodTipoTarefa(jComboTipoTarefa.getSelectedItem().toString()));
+            tarefa.setCodMateria(BuscarInfoDAO.buscarCodMateria(jComboMateria.getSelectedItem().toString()));
             tarefa.setDataTarefa(Formatar.formatarParaMySql(jCallendarAgendar.getDate()));
             tarefa.setHorarioTarefa(jComboHora.getSelectedItem().toString() + ":" + jComboMinuto.getSelectedItem().toString());
-            tarefa.setPrioridadeTarefa(BuscarPK.buscarCodPrioridade(jComboPrioridade.getSelectedItem().toString()));
+            tarefa.setPrioridadeTarefa(BuscarInfoDAO.buscarCodPrioridade(jComboPrioridade.getSelectedItem().toString()));
             agendarController.agendarTarefas(tarefa);
         }
     }//GEN-LAST:event_btnSalvarTarefaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
         if (jDateChooserDia.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Por favor, tenha certeza de ter selecionado um dia válido");
         } else {
@@ -845,11 +874,11 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void setLabelColor(JLabel label) {
+    private void setLabelColor(JLabel label) {
         label.setBackground(new Color(0, 150, 62));
     }
 
-    public void resetLabelColor(JLabel label) {
+    private void resetLabelColor(JLabel label) {
         label.setBackground(new Color(1, 198, 83));
     }
 

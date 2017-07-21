@@ -18,7 +18,7 @@ public class CompromissosDAO {
     public ArrayList<Compromissos> proximasTarefas(String data) {
         ArrayList<Compromissos> tarefas = new ArrayList<>();
         try {
-            PreparedStatement pst = BDConnect.getConnection().prepareStatement("SELECT * FROM tarefa WHERE dia = ?");
+            PreparedStatement pst = BDConnect.getConnection().prepareStatement("SELECT * FROM tarefa WHERE dia = ? order by horario");
             pst.setString(1, data);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
