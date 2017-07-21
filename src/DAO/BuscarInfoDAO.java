@@ -1,27 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import util.BDConnect;
 
-/**
- *
- * @author lucas
- */
+//Classe responsável por buscar as PK e alguns atributos das tabelas.
 public class BuscarInfoDAO {
 
-    static PreparedStatement pst;
+    PreparedStatement pst;
 
-    public static int buscarCodMateria(String materia) {
+    //Busca o código da matéria através do nome
+    public int getCodMateriaByName(String materia) {
         try {
             pst = BDConnect.getConnection().prepareStatement("SELECT cod_materia FROM MATERIA WHERE NOME = ?");
             pst.setString(1, materia);
@@ -30,12 +22,13 @@ public class BuscarInfoDAO {
                 return rs.getInt("cod_materia");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return 0;
     }
 
-    public static int buscarCodPrioridade(String prioridade) {
+    //Buca o codigo da prioridade pelo nome
+    public int getCodPrioridadeByName(String prioridade) {
         try {
             pst = BDConnect.getConnection().prepareStatement("SELECT cod_prioridade FROM prioridade WHERE descricao = ?");
             pst.setString(1, prioridade);
@@ -44,12 +37,13 @@ public class BuscarInfoDAO {
                 return rs.getInt("cod_prioridade");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return 0;
     }
 
-    public static int buscarCodTipoTarefa(String tipoTarefa) {
+    //Busca o codigo do tipo de tarefa pelo nome
+    public int getCodTipoTarefaByName(String tipoTarefa) {
         try {
             pst = BDConnect.getConnection().prepareStatement("SELECT cod_tipo FROM tipo_atividade WHERE descricao = ?");
             pst.setString(1, tipoTarefa);
@@ -58,12 +52,13 @@ public class BuscarInfoDAO {
                 return rs.getInt("cod_tipo");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return 0;
     }
 
-    public static String buscarTipoTarefa(int tipoTarefa) {
+    //Busca o tipo de tarefa pelo codigo
+    public String getTipoTarefaByCod(int tipoTarefa) {
         try {
             pst = BDConnect.getConnection().prepareStatement("SELECT descricao FROM tipo_atividade WHERE cod_tipo = ?");
             pst.setInt(1, tipoTarefa);
@@ -72,12 +67,13 @@ public class BuscarInfoDAO {
                 return rs.getString("descricao");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return null;
     }
 
-    public static String buscarNomeMateria(int codMateria) {
+    //Busca o nome da materia pelo codigo
+    public String getMateriaByCod(int codMateria) {
         try {
             pst = BDConnect.getConnection().prepareStatement("SELECT nome FROM materia WHERE cod_materia = ?");
             pst.setInt(1, codMateria);
@@ -86,12 +82,13 @@ public class BuscarInfoDAO {
                 return rs.getString("nome");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return null;
     }
 
-    public static String buscarPrioridade(int codPrioridade) {
+    //Busca a prioridade pelo codigo
+    public String getPrioridadeByCod(int codPrioridade) {
         try {
             pst = BDConnect.getConnection().prepareStatement("SELECT descricao FROM prioridade WHERE cod_prioridade = ?");
             pst.setInt(1, codPrioridade);
@@ -100,12 +97,13 @@ public class BuscarInfoDAO {
                 return rs.getString("descricao");
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return null;
     }
+    //Busca todas as materias cadastradas
 
-    public static ArrayList<String> getMateriasCadastradas() {
+    public ArrayList<String> getMateriasCadastradas() {
         ArrayList<String> materias = new ArrayList<>();
         try {
             pst = BDConnect.getConnection().prepareStatement("Select nome from materia order by nome");
@@ -114,12 +112,13 @@ public class BuscarInfoDAO {
                 materias.add(rs.getString("nome"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return materias;
     }
+//Busca os tipos de tarefas cadastrados
 
-    public static ArrayList<String> getTiposCadastrados() {
+    public ArrayList<String> getTiposCadastrados() {
         ArrayList<String> tiposAtividade = new ArrayList<>();
         try {
             pst = BDConnect.getConnection().prepareStatement("Select descricao from tipo_atividade");
@@ -128,12 +127,13 @@ public class BuscarInfoDAO {
                 tiposAtividade.add(rs.getString("descricao"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return tiposAtividade;
     }
 
-    public static ArrayList<String> getPrioridadesCadstradas() {
+    //Busca os tipos de prioridades cadastrados
+    public ArrayList<String> getPrioridadesCadstradas() {
         ArrayList<String> prioridades = new ArrayList<>();
         try {
             pst = BDConnect.getConnection().prepareStatement("Select descricao from prioridade");
@@ -142,7 +142,7 @@ public class BuscarInfoDAO {
                 prioridades.add(rs.getString("descricao"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(BuscarInfoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar");
         }
         return prioridades;
     }

@@ -1,10 +1,9 @@
 package model;
 
-/**
- *
- * @author ritta
- */
-public class Compromissos {
+//Classe compromisso
+//Guarda as informações dos compromissos
+public class Compromisso {
+    //Atributos da classe
 
     private int codigoTarefa;
     private String nomeTarefa;
@@ -15,6 +14,7 @@ public class Compromissos {
     private int prioridadeTarefa;
     private int codMateria;
 
+    //===================================Getters e Setters===================================================
     public int getCodigoTarefa() {
         return codigoTarefa;
     }
@@ -23,7 +23,6 @@ public class Compromissos {
         this.codigoTarefa = codigoTarefa;
     }
 
-    
     public String getNomeTarefa() {
         return nomeTarefa;
     }
@@ -79,10 +78,4 @@ public class Compromissos {
     public void setPrioridadeTarefa(int prioridadeTarefa) {
         this.prioridadeTarefa = prioridadeTarefa;
     }
-
-    @Override
-    public String toString() {
-        return "Compromissos{" + "nomeTarefa=" + nomeTarefa + ", descricaoTarefa=" + descricaoTarefa + ", tipoTarefa=" + tipoTarefa + ", dataTarefa=" + dataTarefa + ", horarioTarefa=" + horarioTarefa + ", prioridadeTarefa=" + prioridadeTarefa + ", codMateria=" + codMateria + '}';
-    }
-
 }

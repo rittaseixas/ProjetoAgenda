@@ -1,13 +1,14 @@
 package model;
 
-/**
- *
- * @author ritta
- */
+//Classe Matéria
+//As matérias de cada compromisso do usuário
 public class Materia {
+
+    //Declaração dos atributos
     private int codMateria;
     private String nomeMateria;
 
+    //========================Getters e Setters=================================
     public int getCodMateria() {
         return codMateria;
     }
