@@ -1,8 +1,14 @@
 package view;
 
+import controller.AgendarController;
 import util.MaximumSize;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import model.Compromissos;
+import model.Materia;
+import util.BuscarPK;
+import util.FormatarHora;
 
 public class Home extends javax.swing.JFrame {
 
@@ -12,10 +18,11 @@ public class Home extends javax.swing.JFrame {
     boolean agendarSelected = false;
     boolean notasSelected = false;
     boolean buscarSelected = false;
+    AgendarController agendarController = new AgendarController();
 
     public Home() {
         initComponents();
-        jTextArea1.setDocument(new MaximumSize());
+        txtDescricao.setDocument(new MaximumSize());
     }
 
     @SuppressWarnings("unchecked")
@@ -32,18 +39,18 @@ public class Home extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JLabel();
         home = new javax.swing.JPanel();
         compromissos = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
         jLabel14 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTable7 = new javax.swing.JTable();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTable8 = new javax.swing.JTable();
         notas = new javax.swing.JPanel();
         jLabelConsultar = new javax.swing.JLabel();
         jLabelRegistrar = new javax.swing.JLabel();
@@ -57,20 +64,20 @@ public class Home extends javax.swing.JFrame {
         agendar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboTipoTarefa = new javax.swing.JComboBox<>();
+        jComboMateria = new javax.swing.JComboBox<>();
+        jComboPrioridade = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtNomeTarefa = new javax.swing.JTextField();
+        btnSalvarTarefa = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        txtDescricao = new javax.swing.JTextArea();
+        jComboHora = new javax.swing.JComboBox<>();
+        jComboMinuto = new javax.swing.JComboBox<>();
+        jCallendarAgendar = new com.toedter.calendar.JDateChooser();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,7 +113,7 @@ public class Home extends javax.swing.JFrame {
         btnNotas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnNotas.setForeground(new java.awt.Color(255, 255, 255));
         btnNotas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNotas.setText("Notas");
+        btnNotas.setText("Matérias");
         btnNotas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNotas.setOpaque(true);
         btnNotas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -244,32 +251,6 @@ public class Home extends javax.swing.JFrame {
 
         compromissos.setBackground(java.awt.Color.white);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Compromisso", "Descrição", "Tipo", "Horário", "Prioridade"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable1.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setViewportView(jTable1);
-
         jLabel2.setText("Hoje");
 
         jLabel11.setText("20/07");
@@ -279,14 +260,14 @@ public class Home extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Compromisso", "Descrição", "Tipo", "Horário", "Prioridade"
+                "Compromisso", "Horário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -302,47 +283,21 @@ public class Home extends javax.swing.JFrame {
 
         jLabel13.setText("21/07");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Compromisso", "Descrição", "Tipo", "Horário", "Prioridade"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTable3.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane4.setViewportView(jTable3);
-
         jLabel14.setText("22/07");
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        jTable6.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Compromisso", "Descrição", "Tipo", "Horário", "Prioridade"
+                "Compromisso", "Horário"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -353,67 +308,102 @@ public class Home extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable4.setGridColor(new java.awt.Color(255, 255, 255));
-        jScrollPane5.setViewportView(jTable4);
+        jTable6.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane7.setViewportView(jTable6);
+
+        jTable7.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Compromisso", "Horário"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable7.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane8.setViewportView(jTable7);
+
+        jTable8.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Compromisso", "Horário"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable8.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane9.setViewportView(jTable8);
 
         javax.swing.GroupLayout compromissosLayout = new javax.swing.GroupLayout(compromissos);
         compromissos.setLayout(compromissosLayout);
         compromissosLayout.setHorizontalGroup(
             compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, compromissosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(compromissosLayout.createSequentialGroup()
-                .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(compromissosLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel2)
-                        .addGap(124, 124, 124)
-                        .addComponent(jLabel11))
-                    .addGroup(compromissosLayout.createSequentialGroup()
-                        .addGap(166, 166, 166)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(33, 33, 33)
-                .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(compromissosLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel13))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(compromissosLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel14))
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(compromissosLayout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(491, Short.MAX_VALUE)))
+                .addGap(64, 64, 64)
+                .addComponent(jLabel2)
+                .addGap(154, 154, 154)
+                .addComponent(jLabel11)
+                .addGap(150, 150, 150)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel14)
+                .addGap(87, 87, 87))
         );
         compromissosLayout.setVerticalGroup(
             compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(compromissosLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
                 .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, compromissosLayout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, compromissosLayout.createSequentialGroup()
-                        .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(compromissosLayout.createSequentialGroup()
-                        .addComponent(jLabel14)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, compromissosLayout.createSequentialGroup()
-                    .addContainerGap(84, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(10, 10, 10)))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         home.add(compromissos, "card2");
@@ -437,7 +427,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jLabelConsultar)
                 .addGap(34, 34, 34)
                 .addComponent(jLabelRegistrar)
-                .addContainerGap(280, Short.MAX_VALUE))
+                .addContainerGap(319, Short.MAX_VALUE))
         );
         notasLayout.setVerticalGroup(
             notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -489,7 +479,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(jDateChooser3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addComponent(jButton2)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(177, Short.MAX_VALUE))
         );
         buscarLayout.setVerticalGroup(
             buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -511,7 +501,7 @@ public class Home extends javax.swing.JFrame {
         notasBuscar.setLayout(notasBuscarLayout);
         notasBuscarLayout.setHorizontalGroup(
             notasBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 663, Short.MAX_VALUE)
+            .addGap(0, 702, Short.MAX_VALUE)
         );
         notasBuscarLayout.setVerticalGroup(
             notasBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,19 +518,14 @@ public class Home extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabel6.setText("Descrição");
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarefa", "Estudar", "Trabalho", "Prova" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        jComboTipoTarefa.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jComboTipoTarefa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tarefa", "Estudar", "Trabalho", "Prova" }));
 
-        jComboBox2.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Biologia", "Matemática", "Inglês", "Português", " " }));
+        jComboMateria.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jComboMateria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Biologia", "Matemática", "Inglês", "Português", " " }));
 
-        jComboBox3.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Média", "Baixa" }));
+        jComboPrioridade.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jComboPrioridade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Alta", "Média", "Baixa" }));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabel9.setText("Tipo");
@@ -548,14 +533,19 @@ public class Home extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabel10.setText("Matéria");
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jTextField1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        txtNomeTarefa.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txtNomeTarefa.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jButton1.setText("Agendar");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setPreferredSize(new java.awt.Dimension(76, 25));
+        btnSalvarTarefa.setBackground(new java.awt.Color(255, 255, 255));
+        btnSalvarTarefa.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        btnSalvarTarefa.setText("Agendar");
+        btnSalvarTarefa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalvarTarefa.setPreferredSize(new java.awt.Dimension(76, 25));
+        btnSalvarTarefa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarTarefaActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabel4.setText("Horário");
@@ -566,21 +556,21 @@ public class Home extends javax.swing.JFrame {
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jTextArea1.setWrapStyleWord(true);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
-        jTextArea1.setMaximumSize(new java.awt.Dimension(204, 84));
-        jTextArea1.setMinimumSize(new java.awt.Dimension(204, 84));
-        jScrollPane1.setViewportView(jTextArea1);
+        txtDescricao.setColumns(20);
+        txtDescricao.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        txtDescricao.setLineWrap(true);
+        txtDescricao.setRows(5);
+        txtDescricao.setWrapStyleWord(true);
+        txtDescricao.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+        txtDescricao.setMaximumSize(new java.awt.Dimension(204, 84));
+        txtDescricao.setMinimumSize(new java.awt.Dimension(204, 84));
+        jScrollPane1.setViewportView(txtDescricao);
 
-        jComboBox4.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
+        jComboHora.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jComboHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23" }));
 
-        jComboBox5.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
+        jComboMinuto.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jComboMinuto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         jLabel7.setText("Dia");
@@ -595,18 +585,18 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(agendarLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(34, 34, 34)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNomeTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(agendarLayout.createSequentialGroup()
                         .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(39, 39, 39)
                 .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
                     .addGroup(agendarLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -615,16 +605,16 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(agendarLayout.createSequentialGroup()
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jDateChooser2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboMinuto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCallendarAgendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboTipoTarefa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jComboPrioridade, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(58, 58, 58))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, agendarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvarTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(278, 278, 278))
         );
         agendarLayout.setVerticalGroup(
@@ -635,7 +625,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(agendarLayout.createSequentialGroup()
                         .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNomeTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(agendarLayout.createSequentialGroup()
                                 .addGap(10, 10, 10)
@@ -645,16 +635,16 @@ public class Home extends javax.swing.JFrame {
                             .addGroup(agendarLayout.createSequentialGroup()
                                 .addGap(63, 63, 63)
                                 .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBox5)
-                                    .addComponent(jComboBox4)))))
+                                    .addComponent(jComboMinuto)
+                                    .addComponent(jComboHora)))))
                     .addGroup(agendarLayout.createSequentialGroup()
                         .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1))
+                            .addComponent(jComboTipoTarefa))
                         .addGap(18, 18, 18)
                         .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(agendarLayout.createSequentialGroup()
-                                .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jCallendarAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(agendarLayout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -664,11 +654,11 @@ public class Home extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addGroup(agendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(59, 59, 59)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSalvarTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
 
@@ -686,8 +676,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -813,9 +802,21 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnBuscarMouseExited
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void btnSalvarTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTarefaActionPerformed
+        if (txtNomeTarefa.getText().isEmpty() || jCallendarAgendar.getDate().toString().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, tenha certeza de ter preenchido o campo Nome e ter escolhido uma data");
+        } else {
+            Compromissos tarefa = new Compromissos();
+            tarefa.setNomeTarefa(txtNomeTarefa.getText());
+            tarefa.setDescricaoTarefa(txtDescricao.getText());
+            tarefa.setTipoTarefa(BuscarPK.buscarCodTipoTarefa(jComboTipoTarefa.getSelectedItem().toString()));
+            tarefa.setCodMateria(BuscarPK.buscarCodMateria(jComboMateria.getSelectedItem().toString()));
+            tarefa.setDataTarefa(FormatarHora.formatarParaMySql(jCallendarAgendar.getDate()));
+            tarefa.setHorarioTarefa(jComboHora.getSelectedItem().toString() + ":" + jComboMinuto.getSelectedItem().toString());
+            tarefa.setPrioridadeTarefa(BuscarPK.buscarCodPrioridade(jComboPrioridade.getSelectedItem().toString()));
+            agendarController.agendarTarefas(tarefa);
+        }
+    }//GEN-LAST:event_btnSalvarTarefaActionPerformed
 
     public void setLabelColor(JLabel label) {
         label.setBackground(new Color(0, 150, 62));
@@ -865,18 +866,18 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel btnMinimizar;
     private javax.swing.JLabel btnNotas;
     private javax.swing.JLabel btnSair;
+    private javax.swing.JButton btnSalvarTarefa;
     private javax.swing.JPanel buscar;
     private javax.swing.JPanel compromissos;
     private javax.swing.JPanel header;
     private javax.swing.JPanel home;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jCallendarAgendar;
+    private javax.swing.JComboBox<String> jComboHora;
+    private javax.swing.JComboBox<String> jComboMateria;
+    private javax.swing.JComboBox<String> jComboMinuto;
+    private javax.swing.JComboBox<String> jComboPrioridade;
+    private javax.swing.JComboBox<String> jComboTipoTarefa;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -894,19 +895,19 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelConsultar;
     private javax.swing.JLabel jLabelRegistrar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTable6;
+    private javax.swing.JTable jTable7;
+    private javax.swing.JTable jTable8;
     private javax.swing.JPanel notas;
     private javax.swing.JPanel notasBuscar;
+    private javax.swing.JTextArea txtDescricao;
+    private javax.swing.JTextField txtNomeTarefa;
     // End of variables declaration//GEN-END:variables
 }
