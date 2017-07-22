@@ -1,6 +1,5 @@
 package view;
 
-
 import controller.CompromissosController;
 import util.MaximumSize;
 import java.awt.Color;
@@ -29,15 +28,16 @@ public class Home extends javax.swing.JFrame {
         //Instancia as classes necessárias para o funcionamento do programa
         compromissosController = new CompromissosController();
         buscarInfo = new BuscarInfoDAO();
-        
+
         //Inicia os componentes
         initComponents();
-        
+
         //Atribui uma classe MaximumSize para o txtDescrição. A mesma é responsável por limitar o número de caraceteres da descrição
         txtDescricao.setDocument(new MaximumSize());
-        
+
         //Busca os compromissos dos próximos dias e mostra para o usuário na tela Compromisso
         iniciarCompromissos();
+
     }
 
     private void iniciarCompromissos() {
@@ -449,10 +449,10 @@ public class Home extends javax.swing.JFrame {
             .addGroup(compromissosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblDepoisDepoisAmanha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(compromissosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
-                        .addComponent(jLabel11)
-                        .addComponent(lblDepoisDepoisAmanha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel11))
                     .addGroup(compromissosLayout.createSequentialGroup()
                         .addComponent(lblDepoisAmanha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(11, 11, 11)))
@@ -519,9 +519,14 @@ public class Home extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Compromisso", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade"
+                "Compromisso", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade", "Número"
             }
         ));
+        TabelaCompromissosDoDia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaCompromissosDoDiaMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(TabelaCompromissosDoDia);
 
         javax.swing.GroupLayout buscarLayout = new javax.swing.GroupLayout(buscar);
@@ -930,10 +935,18 @@ public class Home extends javax.swing.JFrame {
         if (jDateChooserDia.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Por favor, tenha certeza de ter selecionado um dia válido");
         } else {
-            //Atribui um modelo de tabela e mostra os dados das atividades programadas para aquele dia
-            TabelaCompromissosDoDia.setModel(new ModeloTabelaDiaSelecionado(Formatar.formatarParaMySql(jDateChooserDia.getDate())));
+            preencherTabela();
         }
     }//GEN-LAST:event_btnBuscarTarefasActionPerformed
+
+    private void TabelaCompromissosDoDiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaCompromissosDoDiaMouseClicked
+        if (evt.getButton() == evt.BUTTON1 && evt.getClickCount() == 2) {
+            int cod = (int) TabelaCompromissosDoDia.getValueAt(TabelaCompromissosDoDia.getSelectedRow(), 6);
+            Compromisso tarefa = compromissosController.getTarefa(cod);
+            new MenuCompromissos(this, true, tarefa).setVisible(true);
+            preencherTabela();
+        }
+    }//GEN-LAST:event_TabelaCompromissosDoDiaMouseClicked
 
     //Método responsável por mudar a cor do label
     private void setLabelColor(JLabel label) {
@@ -943,6 +956,11 @@ public class Home extends javax.swing.JFrame {
     //Método responsável por reiniciar a cor do label
     private void resetLabelColor(JLabel label) {
         label.setBackground(new Color(1, 198, 83));
+    }
+
+    private void preencherTabela() {
+        TabelaCompromissosDoDia.setModel(new ModeloTabelaDiaSelecionado(Formatar.formatarParaMySql(jDateChooserDia.getDate())));
+
     }
 
     public static void main(String args[]) {

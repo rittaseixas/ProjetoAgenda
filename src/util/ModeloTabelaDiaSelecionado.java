@@ -22,10 +22,11 @@ public class ModeloTabelaDiaSelecionado extends AbstractTableModel {
         //Instancia os atributos
         buscarInfo = new BuscarInfoDAO();
         compromissosController = new CompromissosController();
-        this.colunas = new String[]{"Compromisso", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade"};
+        this.colunas = new String[]{"Compromisso", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade", "Número"};
 
         //Busca os compromissos para aquele dia
         compromissos = compromissosController.buscarTarefasDoDia(data);
+
     }
 
     @Override
@@ -57,6 +58,8 @@ public class ModeloTabelaDiaSelecionado extends AbstractTableModel {
                 return compromisso.getHorarioTarefa();
             case 5:
                 return buscarInfo.getPrioridadeByCod(compromisso.getPrioridadeTarefa());
+            case 6:
+                return compromisso.getCodigoTarefa();
         }
         return null;
     }
@@ -64,6 +67,7 @@ public class ModeloTabelaDiaSelecionado extends AbstractTableModel {
     @Override
     public String getColumnName(int columnIndex) {
         //Retorna o nome da coluna
+        
         return colunas[columnIndex];
     }
 

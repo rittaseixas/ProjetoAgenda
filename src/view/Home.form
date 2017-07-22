@@ -316,10 +316,10 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="lblDepoisDepoisAmanha" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblDepoisDepoisAmanha" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="lblDepoisAmanha" max="32767" attributes="0"/>
@@ -731,16 +731,20 @@
                 <Component class="javax.swing.JTable" name="TabelaCompromissosDoDia">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="6" rowCount="0">
+                      <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="Compromisso" type="java.lang.Object"/>
                         <Column editable="true" title="Descri&#xe7;&#xe3;o" type="java.lang.Object"/>
                         <Column editable="true" title="Tipo" type="java.lang.Object"/>
                         <Column editable="true" title="Mat&#xe9;ria" type="java.lang.Object"/>
                         <Column editable="true" title="Hor&#xe1;rio" type="java.lang.Object"/>
                         <Column editable="true" title="Prioridade" type="java.lang.Object"/>
+                        <Column editable="true" title="N&#xfa;mero" type="java.lang.Object"/>
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TabelaCompromissosDoDiaMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

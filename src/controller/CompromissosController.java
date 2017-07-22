@@ -1,5 +1,6 @@
 package controller;
 
+import DAO.BuscarInfoDAO;
 import DAO.CompromissosDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -9,13 +10,14 @@ import model.Compromisso;
 public class CompromissosController {
     //Declaração dos atributos
 
-    CompromissosDAO buscardao = new CompromissosDAO();
+    CompromissosDAO compromissosDAO;
 
     public ArrayList<Compromisso> buscarTarefasProximas(String data) {
+        compromissosDAO = new CompromissosDAO();
         //Controller que lista as tarefas dos proximos dias
 
         //Envia os dados para o DAO fazer a consulta no banco e salva os dados em uma lista
-        ArrayList<Compromisso> listaTarefas = buscardao.proximasTarefas(data);
+        ArrayList<Compromisso> listaTarefas = compromissosDAO.proximasTarefas(data);
 
         //retorna a lista
         return listaTarefas;
@@ -24,8 +26,10 @@ public class CompromissosController {
     public ArrayList<Compromisso> buscarTarefasDoDia(String data) {
         //Controller que lista as tarefas do dia especificado
 
+        compromissosDAO = new CompromissosDAO();
+
         //Envia os dados para o DAO fazer a consulta no banco e salva os dados em uma lista
-        ArrayList<Compromisso> listaTarefas = buscardao.tarefasDoDia(data);
+        ArrayList<Compromisso> listaTarefas = compromissosDAO.tarefasDoDia(data);
 
         //retorna a lista
         return listaTarefas;
@@ -33,10 +37,12 @@ public class CompromissosController {
 
     public void agendarTarefas(Compromisso tarefa) {
         //Controller que cadastra as tarefas no banco
-        
+
+        compromissosDAO = new CompromissosDAO();
+
         //Envia os dados para serem salvos no banco e recebe uma mensagem
-        String status = buscardao.registrarTarefas(tarefa);
-        
+        String status = compromissosDAO.registrarTarefas(tarefa);
+
         //Se a mensagem for "sucesso", uma mensagem é mostrada ao usuário informando que a tarefa foi registrada
         if (status.equals("sucesso")) {
             JOptionPane.showMessageDialog(null, "Tarefa cadastrada com sucesso");
@@ -44,5 +50,23 @@ public class CompromissosController {
             //Caso o registro não tenha sido bem sucedido, mostra uma mensagem de erro ao usuário
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar a tarefa");
         }
+    }
+
+    public Compromisso getTarefa(int cod) {
+        compromissosDAO = new CompromissosDAO();
+        Compromisso tarefa = compromissosDAO.getTarefa(cod);
+        return tarefa;
+    }
+
+    public String atualizarTarefa(Compromisso tarefa) {
+        compromissosDAO = new CompromissosDAO();
+        String status = compromissosDAO.atualizarTarefa(tarefa);
+        if (status.equals("sucesso")) {
+            JOptionPane.showMessageDialog(null, "Tarefa atualizada com sucesso");
+        } else {
+            //Caso o registro não tenha sido bem sucedido, mostra uma mensagem de erro ao usuário
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar a tarefa");
+        }
+        return status;
     }
 }
