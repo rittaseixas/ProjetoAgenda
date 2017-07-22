@@ -1,4 +1,3 @@
-
 package main;
 
 import view.Home;
@@ -8,24 +7,18 @@ import javax.swing.UIManager;
 import static javax.swing.UIManager.getSystemLookAndFeelClassName;
 import javax.swing.UnsupportedLookAndFeelException;
 
-/**
- *
- * @author lucasR
- */
-public class JavaApplication17 {
+public class Iniciar {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         try {
-             // pega aparencia do SO
+            // pega aparencia do SO
             UIManager.setLookAndFeel(getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(JavaApplication17.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Iniciar.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        //Instancia e mostra a tela
         new Home().setVisible(true);
+
     }
 
 }
