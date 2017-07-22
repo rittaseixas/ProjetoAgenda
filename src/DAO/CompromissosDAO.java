@@ -120,4 +120,16 @@ public class CompromissosDAO {
         return "erro";
     }
 
+    public String excluirTarefa(Compromisso tarefa) {
+        try {
+            PreparedStatement pst = BDConnect.getConnection().prepareStatement("DELETE FROM tarefa WHERE cod_tarefa = ?");
+            pst.setInt(1, tarefa.getCodigoTarefa());
+            pst.execute();
+            return "sucesso";
+        } catch (SQLException ex) {
+
+        }
+        return "erro";
+    }
+
 }

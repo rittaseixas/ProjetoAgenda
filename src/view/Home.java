@@ -522,6 +522,7 @@ public class Home extends javax.swing.JFrame {
                 "Compromisso", "Descrição", "Tipo", "Matéria", "Horário", "Prioridade", "Número"
             }
         ));
+        TabelaCompromissosDoDia.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         TabelaCompromissosDoDia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelaCompromissosDoDiaMouseClicked(evt);

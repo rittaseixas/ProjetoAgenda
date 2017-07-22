@@ -69,4 +69,16 @@ public class CompromissosController {
         }
         return status;
     }
+
+    public String excluirTarefa(Compromisso tarefa) {
+        compromissosDAO = new CompromissosDAO();
+        String status = compromissosDAO.excluirTarefa(tarefa);
+        if (status.equals("sucesso")) {
+            JOptionPane.showMessageDialog(null, "Tarefa excluída com sucesso");
+        } else {
+            //Caso o registro não tenha sido bem sucedido, mostra uma mensagem de erro ao usuário
+            JOptionPane.showMessageDialog(null, "Erro ao excluir a tarefa");
+        }
+        return status;
+    }
 }

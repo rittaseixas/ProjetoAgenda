@@ -312,14 +312,22 @@ public class MenuCompromissos extends javax.swing.JDialog {
 
             //Chama o metodo agendarTarefas da classe AgendarController, passando a tarefa criada.
             String status = compromissosController.atualizarTarefa(tarefa);
-            if(status.equals("sucesso")){
+            if (status.equals("sucesso")) {
                 this.dispose();
             }
         }
     }//GEN-LAST:event_btnSalvarTarefaActionPerformed
 
     private void btnSalvarTarefa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTarefa1ActionPerformed
-        // TODO add your handling code here:
+        int op = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir a tarefa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (op == JOptionPane.YES_OPTION) {
+            Compromisso tarefa = new Compromisso();
+            tarefa.setCodigoTarefa(Integer.parseInt(jLabelCod.getText()));
+            String status = compromissosController.excluirTarefa(tarefa);
+            if (status.equals("sucesso")) {
+                this.dispose();
+            }
+        }
     }//GEN-LAST:event_btnSalvarTarefa1ActionPerformed
 
     /**
