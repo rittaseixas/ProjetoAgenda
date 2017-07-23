@@ -101,8 +101,8 @@ public class BuscarInfoDAO {
         }
         return null;
     }
-    //Busca todas as materias cadastradas
 
+    //Busca todas as materias cadastradas
     public ArrayList<String> getMateriasCadastradas() {
         ArrayList<String> materias = new ArrayList<>();
         try {
@@ -116,8 +116,8 @@ public class BuscarInfoDAO {
         }
         return materias;
     }
-//Busca os tipos de tarefas cadastrados
 
+    //Busca os tipos de tarefas cadastrados
     public ArrayList<String> getTiposCadastrados() {
         ArrayList<String> tiposAtividade = new ArrayList<>();
         try {

@@ -1,34 +1,34 @@
 package util;
 
-import controller.CompromissosController;
+import controller.MateriaController;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
-import model.Compromisso;
+import model.Materia;
 
 //Classe responsável por implementar o modelo da tabela que mostra as atividades próximas
 //Utilizada no painel Comromissos
-public class ModeloTabelaProximos extends AbstractTableModel {
+public class ModeloTabelaMaterias extends AbstractTableModel {
     //Definição dos atributos
 
-    CompromissosController compromissosController;
-    private ArrayList<Compromisso> compromissos;
+    MateriaController materiaController;
+    private ArrayList<Materia> materias;
     private final String[] colunas;
 
-    public ModeloTabelaProximos(String data) {
+    public ModeloTabelaMaterias() {
         //O construtor necessita da data.
 
         //Instancia os atributos
-        compromissosController = new CompromissosController();
-        this.colunas = new String[]{"Compromisso", "Horário"};
+        materiaController = new MateriaController();
+        this.colunas = new String[]{"Código", "Matéria"};
 
         //Busca os compromissos para aquele dia
-        compromissos = compromissosController.buscarTarefasProximas(data);
+        materias = materiaController.buscarMaterias();
     }
 
     @Override
     public int getRowCount() {
         //Retorna o numero de linhas
-        return compromissos.size();
+        return materias.size();
     }
 
     @Override
@@ -40,12 +40,12 @@ public class ModeloTabelaProximos extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         //Retorna os valores para exibir na tabela
-        Compromisso compromisso = compromissos.get(rowIndex);
+        Materia materia = materias.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return compromisso.getNomeTarefa();
+                return materia.getCodMateria();
             case 1:
-                return compromisso.getHorarioTarefa().substring(0, 5);
+                return materia.getNomeMateria();
         }
         return null;
     }
