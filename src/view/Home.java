@@ -22,14 +22,14 @@ public class Home extends javax.swing.JFrame {
     private int xy; //mouse pressed
     private boolean compromissosSelected = true;
     private boolean agendarSelected = false;
-    private boolean notasSelected = false;
+    private boolean materiasSelected = false;
     private boolean buscarSelected = false;
     private MateriaController materiaController;
     private CompromissosController compromissosController;
     private BuscarInfoDAO buscarInfo = new BuscarInfoDAO();
     
     public Home() {
-        //Instancia as classes necessárias para o funcionamento do programa
+        //Inicia as variáveis necessárias para o funcionamento do programa
         compromissosController = new CompromissosController();
         materiaController = new MateriaController();
         buscarInfo = new BuscarInfoDAO();
@@ -37,7 +37,8 @@ public class Home extends javax.swing.JFrame {
         //Inicia os componentes
         initComponents();
 
-        //Atribui uma classe MaximumSize para o txtDescrição. A mesma é responsável por limitar o número de caraceteres da descrição
+        //Atribui uma classe MaximumSize para o txtDescrição. 
+        //A mesma é responsável por limitar o número de caraceteres da descrição
         txtDescricao.setDocument(new MaximumSize());
 
         //Busca os compromissos dos próximos dias e mostra para o usuário na tela Compromisso
@@ -49,7 +50,7 @@ public class Home extends javax.swing.JFrame {
         //Busca as datas no sistema para mostrar no painel Compromisso
         Date[] datas = Formatar.buscarProximosDias();
 
-        //Mostra as datas
+        //Mostra as datas na tela Compromissos
         lblDepoisAmanha.setText(Formatar.formatarParaExibir(datas[2]));
         lblDepoisDepoisAmanha.setText(Formatar.formatarParaExibir(datas[3]));
 
@@ -90,7 +91,7 @@ public class Home extends javax.swing.JFrame {
 
         header = new javax.swing.JPanel();
         btnSair = new javax.swing.JLabel();
-        btnNotas = new javax.swing.JLabel();
+        btnMaterias = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnCompromissos = new javax.swing.JLabel();
         btnAgendar = new javax.swing.JLabel();
@@ -172,22 +173,22 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        btnNotas.setBackground(new java.awt.Color(1, 198, 83));
-        btnNotas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        btnNotas.setForeground(new java.awt.Color(255, 255, 255));
-        btnNotas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnNotas.setText("Matérias");
-        btnNotas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnNotas.setOpaque(true);
-        btnNotas.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMaterias.setBackground(new java.awt.Color(1, 198, 83));
+        btnMaterias.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnMaterias.setForeground(new java.awt.Color(255, 255, 255));
+        btnMaterias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMaterias.setText("Matérias");
+        btnMaterias.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMaterias.setOpaque(true);
+        btnMaterias.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnNotasMouseClicked(evt);
+                btnMateriasMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnNotasMouseEntered(evt);
+                btnMateriasMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnNotasMouseExited(evt);
+                btnMateriasMouseExited(evt);
             }
         });
 
@@ -287,7 +288,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -303,7 +304,7 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jLabel3)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCompromissos, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -827,13 +828,13 @@ public class Home extends javax.swing.JFrame {
         //Muda as cores dos labels
         setLabelColor(btnCompromissos);
         resetLabelColor(btnAgendar);
-        resetLabelColor(btnNotas);
+        resetLabelColor(btnMaterias);
         resetLabelColor(btnBuscar);
 
         //Identifica qual label está selecionado
         compromissosSelected = true;
         agendarSelected = false;
-        notasSelected = false;
+        materiasSelected = false;
         buscarSelected = false;
 
         //Mostra o painel correto e esconde os outros
@@ -843,9 +844,9 @@ public class Home extends javax.swing.JFrame {
         buscar.setVisible(false);
     }//GEN-LAST:event_btnCompromissosMouseClicked
 
-    private void btnNotasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotasMouseClicked
+    private void btnMateriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMateriasMouseClicked
         //Muda as cores dos labels
-        setLabelColor(btnNotas);
+        setLabelColor(btnMaterias);
         resetLabelColor(btnAgendar);
         resetLabelColor(btnCompromissos);
         resetLabelColor(btnBuscar);
@@ -853,7 +854,7 @@ public class Home extends javax.swing.JFrame {
         //Identifica qual label está selecionado
         compromissosSelected = false;
         agendarSelected = false;
-        notasSelected = true;
+        materiasSelected = true;
         buscarSelected = false;
 
         //Mostra o painel correto e esconde os outros
@@ -862,7 +863,7 @@ public class Home extends javax.swing.JFrame {
         materias.setVisible(true);
         buscar.setVisible(false);
         preencheTabelaMaterias();
-    }//GEN-LAST:event_btnNotasMouseClicked
+    }//GEN-LAST:event_btnMateriasMouseClicked
 
     private void btnAgendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendarMouseClicked
         //Chama o método que preenche as comboboxes
@@ -871,13 +872,13 @@ public class Home extends javax.swing.JFrame {
         //Muda as cores dos labels
         setLabelColor(btnAgendar);
         resetLabelColor(btnCompromissos);
-        resetLabelColor(btnNotas);
+        resetLabelColor(btnMaterias);
         resetLabelColor(btnBuscar);
 
         //Identifica qual label está selecionado
         compromissosSelected = false;
         agendarSelected = true;
-        notasSelected = false;
+        materiasSelected = false;
         buscarSelected = false;
 
         //Mostra o painel correto e esconde os outros
@@ -899,17 +900,17 @@ public class Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCompromissosMouseExited
 
-    private void btnNotasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotasMouseEntered
+    private void btnMateriasMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMateriasMouseEntered
         //Muda a cor do label ao passar o mouse por cima
-        setLabelColor(btnNotas);
-    }//GEN-LAST:event_btnNotasMouseEntered
+        setLabelColor(btnMaterias);
+    }//GEN-LAST:event_btnMateriasMouseEntered
 
-    private void btnNotasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNotasMouseExited
+    private void btnMateriasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMateriasMouseExited
         //Reinicia a cor do label caso o mouse passe por cima dele sem clicar
-        if (notasSelected == false) {
-            resetLabelColor(btnNotas);
+        if (materiasSelected == false) {
+            resetLabelColor(btnMaterias);
         }
-    }//GEN-LAST:event_btnNotasMouseExited
+    }//GEN-LAST:event_btnMateriasMouseExited
 
     private void btnAgendarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendarMouseEntered
         //Muda a cor do label ao passar o mouse por cima
@@ -933,12 +934,12 @@ public class Home extends javax.swing.JFrame {
         setLabelColor(btnBuscar);
         resetLabelColor(btnAgendar);
         resetLabelColor(btnCompromissos);
-        resetLabelColor(btnNotas);
+        resetLabelColor(btnMaterias);
 
         //Identifica qual label está selecionado
         compromissosSelected = false;
         agendarSelected = false;
-        notasSelected = false;
+        materiasSelected = false;
         buscarSelected = true;
 
         //Mostra o painel correto e esconde os outros
@@ -963,7 +964,8 @@ public class Home extends javax.swing.JFrame {
     private void btnSalvarTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTarefaActionPerformed
         //Método para salvar uma nova tarefa
 
-        //Se o nome da tarefa ou a data estiverem em branco, informa o usuário solicitando que ele insira os dados. Esses dados são obrigatórios
+        //Se o nome da tarefa ou a data estiverem em branco, informa o usuário solicitando que ele insira os dados.
+        //Esses dados são obrigatórios
         if (txtNomeTarefa.getText().isEmpty() || jCallendarAgendar.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Por favor, tenha certeza de ter preenchido o campo Nome e ter escolhido uma data");
         } else {
@@ -1032,18 +1034,17 @@ public class Home extends javax.swing.JFrame {
         label.setBackground(new Color(1, 198, 83));
     }
     
+    //Método que preenche a tabela com os compromissos do dia selecionado
     private void preencherTabelaCompromissosDoDia() {
         TabelaCompromissosDoDia.setModel(new ModeloTabelaDiaSelecionado(Formatar.formatarParaMySql(jDateChooserDia.getDate())));
-        
     }
-    
+    //Método que preenche a tabela de matérias
     private void preencheTabelaMaterias() {
         tabelaMaterias.setModel(new ModeloTabelaMaterias());
     }
     
     public static void main(String args[]) {
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Home().setVisible(true);
@@ -1059,8 +1060,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscarTarefas;
     private javax.swing.JButton btnCadMateria;
     private javax.swing.JLabel btnCompromissos;
+    private javax.swing.JLabel btnMaterias;
     private javax.swing.JLabel btnMinimizar;
-    private javax.swing.JLabel btnNotas;
     private javax.swing.JLabel btnSair;
     private javax.swing.JButton btnSalvarTarefa;
     private javax.swing.JPanel buscar;
