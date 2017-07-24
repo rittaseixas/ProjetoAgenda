@@ -8,25 +8,30 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.Compromisso;
 import DAO.BuscarInfoDAO;
+import controller.MateriaController;
 import java.util.ArrayList;
+import model.Materia;
 import util.Formatar;
 import util.ModeloTabelaDiaSelecionado;
+import util.ModeloTabelaMaterias;
 import util.ModeloTabelaProximos;
 
 public class Home extends javax.swing.JFrame {
-
+    
     private int xx; //mouse pressed
     private int xy; //mouse pressed
     private boolean compromissosSelected = true;
     private boolean agendarSelected = false;
     private boolean notasSelected = false;
     private boolean buscarSelected = false;
+    private MateriaController materiaController;
     private CompromissosController compromissosController;
     private BuscarInfoDAO buscarInfo = new BuscarInfoDAO();
-
+    
     public Home() {
         //Instancia as classes necessárias para o funcionamento do programa
         compromissosController = new CompromissosController();
+        materiaController = new MateriaController();
         buscarInfo = new BuscarInfoDAO();
 
         //Inicia os componentes
@@ -37,9 +42,9 @@ public class Home extends javax.swing.JFrame {
 
         //Busca os compromissos dos próximos dias e mostra para o usuário na tela Compromisso
         iniciarCompromissos();
-
+        
     }
-
+    
     private void iniciarCompromissos() {
         //Busca as datas no sistema para mostrar no painel Compromisso
         Date[] datas = Formatar.buscarProximosDias();
@@ -54,7 +59,7 @@ public class Home extends javax.swing.JFrame {
         tabelaCompromissos3.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[2])));
         tabelaCompromissos4.setModel(new ModeloTabelaProximos(Formatar.formatarParaMySql(datas[3])));
     }
-
+    
     private void fillComboBoxesAgendar() {
         //Limpa todos os combo boxes do painel Agendar
         jComboMateria.removeAllItems();
@@ -78,7 +83,7 @@ public class Home extends javax.swing.JFrame {
             jComboPrioridade.addItem(prioridade);
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -105,16 +110,20 @@ public class Home extends javax.swing.JFrame {
         tabelaCompromissos2 = new javax.swing.JTable();
         jScrollPane9 = new javax.swing.JScrollPane();
         tabelaCompromissos3 = new javax.swing.JTable();
-        notas = new javax.swing.JPanel();
-        jLabelConsultar = new javax.swing.JLabel();
-        jLabelRegistrar = new javax.swing.JLabel();
+        materias = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabelaMaterias = new javax.swing.JTable();
+        jLabel5 = new javax.swing.JLabel();
+        txtCadNomeMateria = new javax.swing.JTextField();
+        btnCadMateria = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         buscar = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jDateChooserDia = new com.toedter.calendar.JDateChooser();
         btnBuscarTarefas = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         TabelaCompromissosDoDia = new javax.swing.JTable();
-        notasBuscar = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         agendar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -466,38 +475,83 @@ public class Home extends javax.swing.JFrame {
 
         home.add(compromissos, "card2");
 
-        notas.setBackground(java.awt.Color.white);
+        materias.setBackground(java.awt.Color.white);
 
-        jLabelConsultar.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        jLabelConsultar.setForeground(new java.awt.Color(102, 102, 102));
-        jLabelConsultar.setText("Consultar");
+        tabelaMaterias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jLabelRegistrar.setFont(new java.awt.Font("Century Gothic", 1, 13)); // NOI18N
-        jLabelRegistrar.setForeground(new java.awt.Color(102, 102, 102));
-        jLabelRegistrar.setText("Registrar");
+            },
+            new String [] {
+                "Código", "Matéria"
+            }
+        ));
+        tabelaMaterias.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tabelaMaterias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMateriasMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabelaMaterias);
 
-        javax.swing.GroupLayout notasLayout = new javax.swing.GroupLayout(notas);
-        notas.setLayout(notasLayout);
-        notasLayout.setHorizontalGroup(
-            notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(notasLayout.createSequentialGroup()
-                .addGap(229, 229, 229)
-                .addComponent(jLabelConsultar)
-                .addGap(34, 34, 34)
-                .addComponent(jLabelRegistrar)
-                .addContainerGap(319, Short.MAX_VALUE))
+        jLabel5.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        jLabel5.setText("Matéria");
+
+        txtCadNomeMateria.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        txtCadNomeMateria.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
+
+        btnCadMateria.setBackground(new java.awt.Color(255, 255, 255));
+        btnCadMateria.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        btnCadMateria.setText("Cadastrar");
+        btnCadMateria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCadMateria.setPreferredSize(new java.awt.Dimension(76, 25));
+        btnCadMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadMateriaActionPerformed(evt);
+            }
+        });
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI Light", 2, 12)); // NOI18N
+        jLabel14.setText("Para editar ou excluir as matérias, clique duas vezes sobre a matéria desejada.");
+
+        javax.swing.GroupLayout materiasLayout = new javax.swing.GroupLayout(materias);
+        materias.setLayout(materiasLayout);
+        materiasLayout.setHorizontalGroup(
+            materiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(materiasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(materiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, materiasLayout.createSequentialGroup()
+                        .addGroup(materiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(btnCadMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(materiasLayout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCadNomeMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(materiasLayout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        notasLayout.setVerticalGroup(
-            notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(notasLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(notasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelConsultar)
-                    .addComponent(jLabelRegistrar))
-                .addContainerGap(318, Short.MAX_VALUE))
+        materiasLayout.setVerticalGroup(
+            materiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(materiasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(materiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(materiasLayout.createSequentialGroup()
+                        .addGroup(materiasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(txtCadNomeMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(64, 64, 64)
+                        .addComponent(btnCadMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        home.add(notas, "card4");
+        home.add(materias, "card4");
 
         buscar.setBackground(java.awt.Color.white);
 
@@ -523,6 +577,7 @@ public class Home extends javax.swing.JFrame {
             }
         ));
         TabelaCompromissosDoDia.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        TabelaCompromissosDoDia.getTableHeader().setReorderingAllowed(false);
         TabelaCompromissosDoDia.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelaCompromissosDoDiaMouseClicked(evt);
@@ -530,22 +585,32 @@ public class Home extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(TabelaCompromissosDoDia);
 
+        jLabel13.setFont(new java.awt.Font("Segoe UI Light", 2, 12)); // NOI18N
+        jLabel13.setText("Para editar ou excluir os compromissos, clique duas vezes sobre o compromisso desejado.");
+
         javax.swing.GroupLayout buscarLayout = new javax.swing.GroupLayout(buscar);
         buscar.setLayout(buscarLayout);
         buscarLayout.setHorizontalGroup(
             buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buscarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane6)
+                .addGroup(buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(buscarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane6))
+                    .addGroup(buscarLayout.createSequentialGroup()
+                        .addGroup(buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(buscarLayout.createSequentialGroup()
+                                .addGap(181, 181, 181)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(44, 44, 44)
+                                .addComponent(jDateChooserDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
+                                .addComponent(btnBuscarTarefas))
+                            .addGroup(buscarLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel13)))
+                        .addGap(0, 167, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(buscarLayout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addComponent(jDateChooserDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(btnBuscarTarefas)
-                .addContainerGap(177, Short.MAX_VALUE))
         );
         buscarLayout.setVerticalGroup(
             buscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -557,24 +622,13 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jDateChooserDia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(jLabel13)
                 .addContainerGap())
         );
 
         home.add(buscar, "card2");
-
-        javax.swing.GroupLayout notasBuscarLayout = new javax.swing.GroupLayout(notasBuscar);
-        notasBuscar.setLayout(notasBuscarLayout);
-        notasBuscarLayout.setHorizontalGroup(
-            notasBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 702, Short.MAX_VALUE)
-        );
-        notasBuscarLayout.setVerticalGroup(
-            notasBuscarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 353, Short.MAX_VALUE)
-        );
-
-        home.add(notasBuscar, "card6");
 
         agendar.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -785,7 +839,7 @@ public class Home extends javax.swing.JFrame {
         //Mostra o painel correto e esconde os outros
         compromissos.setVisible(true);
         agendar.setVisible(false);
-        notas.setVisible(false);
+        materias.setVisible(false);
         buscar.setVisible(false);
     }//GEN-LAST:event_btnCompromissosMouseClicked
 
@@ -805,8 +859,9 @@ public class Home extends javax.swing.JFrame {
         //Mostra o painel correto e esconde os outros
         compromissos.setVisible(false);
         agendar.setVisible(false);
-        notas.setVisible(true);
+        materias.setVisible(true);
         buscar.setVisible(false);
+        preencheTabelaMaterias();
     }//GEN-LAST:event_btnNotasMouseClicked
 
     private void btnAgendarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgendarMouseClicked
@@ -828,7 +883,7 @@ public class Home extends javax.swing.JFrame {
         //Mostra o painel correto e esconde os outros
         compromissos.setVisible(false);
         agendar.setVisible(true);
-        notas.setVisible(false);
+        materias.setVisible(false);
         buscar.setVisible(false);
     }//GEN-LAST:event_btnAgendarMouseClicked
 
@@ -889,7 +944,7 @@ public class Home extends javax.swing.JFrame {
         //Mostra o painel correto e esconde os outros
         compromissos.setVisible(false);
         agendar.setVisible(false);
-        notas.setVisible(false);
+        materias.setVisible(false);
         buscar.setVisible(true);
     }//GEN-LAST:event_btnBuscarMouseClicked
 
@@ -936,7 +991,7 @@ public class Home extends javax.swing.JFrame {
         if (jDateChooserDia.getDate() == null) {
             JOptionPane.showMessageDialog(null, "Por favor, tenha certeza de ter selecionado um dia válido");
         } else {
-            preencherTabela();
+            preencherTabelaCompromissosDoDia();
         }
     }//GEN-LAST:event_btnBuscarTarefasActionPerformed
 
@@ -945,9 +1000,27 @@ public class Home extends javax.swing.JFrame {
             int cod = (int) TabelaCompromissosDoDia.getValueAt(TabelaCompromissosDoDia.getSelectedRow(), 6);
             Compromisso tarefa = compromissosController.getTarefa(cod);
             new MenuCompromissos(this, true, tarefa).setVisible(true);
-            preencherTabela();
+            preencherTabelaCompromissosDoDia();
         }
     }//GEN-LAST:event_TabelaCompromissosDoDiaMouseClicked
+
+    private void btnCadMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadMateriaActionPerformed
+        Materia materia = new Materia();
+        materia.setNomeMateria(txtCadNomeMateria.getText().toUpperCase());
+        materiaController.cadastrarMateria(materia);
+        preencheTabelaMaterias();
+    }//GEN-LAST:event_btnCadMateriaActionPerformed
+
+    private void tabelaMateriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMateriasMouseClicked
+        if (evt.getButton() == evt.BUTTON1 && evt.getClickCount() == 2) {
+            int cod = (int) tabelaMaterias.getValueAt(tabelaMaterias.getSelectedRow(), 0);
+            Materia materia = new Materia();
+            materia.setCodMateria(cod);
+            materia.setNomeMateria(buscarInfo.getMateriaByCod(cod));
+            new MenuMaterias(this, true, materia).setVisible(true);
+            preencheTabelaMaterias();
+        }
+    }//GEN-LAST:event_tabelaMateriasMouseClicked
 
     //Método responsável por mudar a cor do label
     private void setLabelColor(JLabel label) {
@@ -958,12 +1031,16 @@ public class Home extends javax.swing.JFrame {
     private void resetLabelColor(JLabel label) {
         label.setBackground(new Color(1, 198, 83));
     }
-
-    private void preencherTabela() {
+    
+    private void preencherTabelaCompromissosDoDia() {
         TabelaCompromissosDoDia.setModel(new ModeloTabelaDiaSelecionado(Formatar.formatarParaMySql(jDateChooserDia.getDate())));
-
+        
     }
-
+    
+    private void preencheTabelaMaterias() {
+        tabelaMaterias.setModel(new ModeloTabelaMaterias());
+    }
+    
     public static void main(String args[]) {
 
         /* Create and display the form */
@@ -980,6 +1057,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel btnAgendar;
     private javax.swing.JLabel btnBuscar;
     private javax.swing.JButton btnBuscarTarefas;
+    private javax.swing.JButton btnCadMateria;
     private javax.swing.JLabel btnCompromissos;
     private javax.swing.JLabel btnMinimizar;
     private javax.swing.JLabel btnNotas;
@@ -1000,16 +1078,18 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelConsultar;
-    private javax.swing.JLabel jLabelRegistrar;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
@@ -1017,13 +1097,15 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel lblDepoisAmanha;
     private javax.swing.JLabel lblDepoisDepoisAmanha;
-    private javax.swing.JPanel notas;
-    private javax.swing.JPanel notasBuscar;
+    private javax.swing.JPanel materias;
     private javax.swing.JTable tabelaCompromissos1;
     private javax.swing.JTable tabelaCompromissos2;
     private javax.swing.JTable tabelaCompromissos3;
     private javax.swing.JTable tabelaCompromissos4;
+    private javax.swing.JTable tabelaMaterias;
+    private javax.swing.JTextField txtCadNomeMateria;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtNomeTarefa;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -55,7 +55,7 @@ public class ModeloTabelaDiaSelecionado extends AbstractTableModel {
             case 3:
                 return buscarInfo.getMateriaByCod(compromisso.getCodMateria());
             case 4:
-                return compromisso.getHorarioTarefa();
+                return compromisso.getHorarioTarefa().substring(0, 5);
             case 5:
                 return buscarInfo.getPrioridadeByCod(compromisso.getPrioridadeTarefa());
             case 6:
@@ -76,5 +76,6 @@ public class ModeloTabelaDiaSelecionado extends AbstractTableModel {
         //Define as células da tabela como não editáveis
         return false;
     }
+    
 
 }
