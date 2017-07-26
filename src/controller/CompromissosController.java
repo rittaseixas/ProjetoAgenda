@@ -1,6 +1,5 @@
 package controller;
 
-import DAO.BuscarInfoDAO;
 import DAO.CompromissosDAO;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
