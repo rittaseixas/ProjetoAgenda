@@ -176,6 +176,7 @@ public class Home extends javax.swing.JFrame {
         btnNotas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnNotas.setForeground(new java.awt.Color(255, 255, 255));
         btnNotas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnNotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resource/Book Stack_20px.png"))); // NOI18N
         btnNotas.setText("Matérias");
         btnNotas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnNotas.setOpaque(true);
@@ -288,7 +289,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnNotas, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btnAgendar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
