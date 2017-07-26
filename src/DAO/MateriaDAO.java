@@ -72,7 +72,7 @@ public class MateriaDAO {
 
     public String excluirMateria(Materia materia) {
          try {
-            PreparedStatement pst = BDConnect.getConnection().prepareStatement("DELETE FROM materia WHERE cod_materia = ?");
+            pst = BDConnect.getConnection().prepareStatement("DELETE FROM materia WHERE cod_materia = ?");
             pst.setInt(1, materia.getCodMateria());
             pst.execute();
             return "sucesso";

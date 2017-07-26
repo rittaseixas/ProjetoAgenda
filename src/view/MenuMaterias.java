@@ -45,6 +45,7 @@ public class MenuMaterias extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(java.awt.Color.white);
+        setResizable(false);
 
         txtNomeMateria.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
         txtNomeMateria.setBorder(javax.swing.BorderFactory.createEtchedBorder(java.awt.Color.lightGray, null));
@@ -112,6 +113,7 @@ public class MenuMaterias extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEditarMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarMateriaActionPerformed
